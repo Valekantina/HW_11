@@ -125,9 +125,9 @@ def input_error(func):
         except IndexError:
             return "Sorry, you have not provided enough arguments."
         except ValueError:
-            return "Please provide me with a name and a phone number or name, old number and new number. Please provide the phone in +xxxxxxxxxx format"
-        except TypeError:
-            return "Sorry, you have provided wrong type of arguments."
+            return "Please provide me with a name and a phone number or name, old number and new number. Please provide the phone in xxxxxxxxx format"
+        except TypeError as err:
+            return "Sorry, you have provided wrong type of arguments. Error: {err}"
     return wrapper
 
 
@@ -193,7 +193,7 @@ def show_all(address_book, *args):
 
 
 @input_error
-def birthday(address_book, *args):
+def days_to_birthday(address_book, *args):
     name = args[0]
     if address_book[name].birthday.value is None:
         return "Unknown birthday"
@@ -201,7 +201,7 @@ def birthday(address_book, *args):
 
 
 @input_error
-def add_bday(address_book, *args):
+def birthday(address_book, *args):
     name = args[0]
     address_book[name].birthday = Birthday(args[1])
     return f"The birthday has been successfully added to the {name}"
@@ -223,8 +223,8 @@ COMMANDS = {exit: ["exit", ".", "good bye", "close", "bye"],
             phone_number: ["phone"],
             help: ["help"], 
             delete: ["delete", "remove"],
-            birthday: ["birthay", "bday", "bd"], 
-            add_bday: ["add birthday", "add bday", "add bd"]
+            days_to_birthday: ["bday", "days to bd"], 
+            birthday: ["set bday", "+bday", "birthday"]
             }
 
 
@@ -237,13 +237,13 @@ def parse_command(user_input: str):
         return command_not_found
 
 address_book = AddressBook()
+
 def main():
-    
     while True:
         user_input = input("Input command: ")
         result, data = parse_command(user_input)
         if result:
-            print(result(*data))
+            print(result(address_book, *data))
         else:
             print (f"Sorry, I do not know this command, please try again. Or type'help' for help")
 
