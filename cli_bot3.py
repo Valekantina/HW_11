@@ -210,7 +210,7 @@ def birthday(address_book, *args):
 def command_not_found(*args):
     return "Command not found! Try help or another command!"
 
-def exit():
+def exit(*args):
     print(f"Good bye!")
     time.sleep(1.5) # added delay on quit() so the message "Good bye!" is visible
     quit()
