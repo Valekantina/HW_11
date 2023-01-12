@@ -11,7 +11,7 @@ class Field:
         self.value = value
 
     def __str__(self) -> str:
-        return f'{self.value}'
+        return f"{self.value}"
 
 # creating Name class 
 class Name(Field):
@@ -171,7 +171,7 @@ def delete(address_book, *args):
     rec.delete(phone)
     if len(rec.telephone_list) == 0:
         address_book.pop(args[0])
-    return f"The phone nu,ber has been successfully removed!"
+    return f"The phone number has been successfully removed!"
 
 # creating function to view phone number of a chosen person from contacts list
 @input_error
